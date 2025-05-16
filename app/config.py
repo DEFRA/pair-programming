@@ -13,6 +13,8 @@ class AppConfig(BaseSettings):
     http_proxy: Optional[HttpUrl] = None
     enable_metrics: bool = False
     tracing_header: str = "x-cdp-request-id"
+    GOV_NOTIFY_API_KEY: Optional[str] = None
+    GOV_NOTIFY_TEMPLATE_ID: Optional[str] = None
 
 
 config = AppConfig()

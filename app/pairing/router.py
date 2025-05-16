@@ -3,6 +3,7 @@ from typing import Optional
 
 from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.concurrency import run_in_threadpool
 from pymongo.collection import Collection
 
 from app.common.mongo import get_db
@@ -51,7 +52,15 @@ async def pair_user(
     await users.update_one(
         {"_id": match["_id"]}, {"$addToSet": {"paired_with": str(user["_id"])}}
     )
-    # TODO: Send email via Gov Notify here
+    # Send email to both users
+    from app.common.gov_notify import send_pair_email
+
+    await run_in_threadpool(
+        send_pair_email, user["email"], match["name"], match["email"]
+    )
+    await run_in_threadpool(
+        send_pair_email, match["email"], user["name"], user["email"]
+    )
     match_response = UserResponse(
         id=str(match["_id"]),
         name=match["name"],
