@@ -9,3 +9,4 @@ pymongo[aws,snappy,zstd,encryption]
 httpx
 uvicorn
 notifications-python-client
+pydantic[email]

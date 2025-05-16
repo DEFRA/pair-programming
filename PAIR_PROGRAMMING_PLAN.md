@@ -10,7 +10,7 @@ This app is for matching registered users (2 unique users) for pair programming.
 ### 2. API Endpoints
 - Use FastAPI to define endpoints.
 - POST `/register`: Accepts name and email, adds user if not present, and pairs them with a new user they haven’t been matched with.
-- POST `/pair`: It accepts username or email and responds by emailing who the user has been paired with and a message.
+- POST `/pair`: It accepts username or email and responds by emailing who the user has been paired with and a message. (only pair existing user i.e. users must have gone through the register route before they can be paired)
 - GET `/users`: List all users and their pairings for admin/debugging.
 
 ### 3. Pairing Logic
@@ -20,8 +20,8 @@ This app is for matching registered users (2 unique users) for pair programming.
 
 ### 4. Email Notification
 - Use the Gov Notify service to send emails. (pairpeople@notifications.service.gov.uk)
-- Use a library like `smtplib` or a transactional email service (e.g., SendGrid) to send emails.
-- The email must be sent using outlook.
+- The email must be sent using Gov Notify.
+- The instructions for using Gov Notify API is in this document "/Users/farhanaabdulalim/Documents/Dev/pair-programming-project/pair-programming-backend/Python client documentation - GOV.UK Notify.pdf"
 - After pairing, send an email to both users with their match details.
 
 ### 5. MongoDB Integration
